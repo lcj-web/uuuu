@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<style>
+			.div{
+				background:red;
+			}
+			.div2{
+				background:yellow;
+			}
+			.div3{
+				background:green;
+			}
+			.div4{
+				background:blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<div class="div"></div>
+			<div class="div2"></div>
+			<div class="div3"></div>
+			<div class="div4"></div>
+		</div>
+<script>
+window.onload=function(){
+	var box=document.getElementById("box");
+	var divs=document.getElementsByTagName("div");
+	var w=window.innerWidth;
+	var h=window.innerHeight;
+	for(var i=0;i<divs.length;i++){
+		divs[i].style.height=h+'px';
+		divs[i].style.width=w+'px';
+	}
+	function addWheel(obj,fnUP,fnDown){//兼容封装函数
+		var liu = window.navigator.userAgent.toLowerCase();
+		if(liu.indexOf('firefox') == -1){
+			obj.onmousewheel = fn;
+		}else{ //走ff
+			obj.addEventListener('DOMMouseScroll',fn);
+		}
+		function fn(ev){
+			var ev = ev||window.event;
+			var down = true;
+			if(ev.wheelDelta){
+				down = ev.wheelDelta>0?true:false;
+			}else{
+				down = ev.detail<0?true:false;
+			}
+			if(down){
+				
+				if(typeof fnUP == 'function'){
+					fnUP();
+				}
+			}else{
+				if(typeof fnDown == 'function'){
+					fnDown();
+				}
+			}
+		}
+	}
+}
+</script>
+	</body>
+</html>
